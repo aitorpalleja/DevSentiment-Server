@@ -58,11 +58,38 @@ const getReactJSTweets = async (next_token) => {
   originalCounter += originalTweets.length;
   console.log(`Received ${originalCounter} original tweets`);
 
-  originalTweets.forEach(tweet => console.log(tweet.text));
+ // originalTweets.forEach(tweet => console.log(tweet.text));
 
   if (response.data.meta.next_token) {
     getReactJSTweets(response.data.meta.next_token);
   }
 }
 
-getReactJSTweets();
+const getAngularTweets = async (next_token) => {
+  const query = {
+    "query": "angular js OR angular programming OR angular library OR angular javascript OR learn angular  lang:en",
+    "max_results": "100",
+    "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
+  };
+
+  if (next_token) {
+    query.next_token = next_token;
+  }
+
+  const response = await axios.get(baseURL, { headers, params: query });
+  counter += response.data.data.length;
+  console.log(`Received ${counter} tweets`);
+
+  // filter out retweets
+  const originalTweets = response.data.data.filter(tweet => !tweet.text.startsWith("RT @"));
+  originalCounter += originalTweets.length;
+  console.log(`Received ${originalCounter} original tweets`);
+
+  //originalTweets.forEach(tweet => console.log(tweet.text));
+
+  if (response.data.meta.next_token) {
+    getAngularTweets(response.data.meta.next_token);
+  }
+}
+
+getAngularTweets();
