@@ -12,11 +12,14 @@ const query = {
   "query": "javascript lang:en",
   "max_results": "100",
   "start_time": (new Date(Date.now() - 24*60*60*1000)).toISOString()
+
   
   
 };
 
 let counter = 0;
+let originalCounter = 0;
+
 
 const getResults = async (next_token) => {
   if (next_token) {
@@ -26,8 +29,14 @@ const getResults = async (next_token) => {
   const response = await axios.get(baseURL, {headers, params: query});
   counter += response.data.data.length;
   console.log(`Received ${counter} tweets`);
+  
+  // filter out retweets
 
-  //response.data.data.forEach(tweet => console.log(`"${tweet.text}"`));
+  const originalTweets = response.data.data.filter(tweet => !tweet.text.startsWith("RT @"));
+  originalCounter += originalTweets.length;
+  console.log(`Received ${originalCounter} original tweets`);
+
+  originalTweets.forEach(tweet => console.log(tweet.text));
 
   if (response.data.meta.next_token) {
     getResults(response.data.meta.next_token);
