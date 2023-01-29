@@ -1,4 +1,4 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const axios = require('axios');
 
 const baseURL = 'https://api.twitter.com/2/tweets/search/recent';
@@ -8,30 +8,25 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-const query = {
-  "query": "javascript lang:en",
-  "max_results": "100",
-  "start_time": (new Date(Date.now() - 24*60*60*1000)).toISOString()
-
-  
-  
-};
-
 let counter = 0;
 let originalCounter = 0;
 
+const getJavaScriptTweets = async (next_token) => {
+  const query = {
+    "query": "javascript lang:en",
+    "max_results": "100",
+    "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
+  };
 
-const getResults = async (next_token) => {
   if (next_token) {
     query.next_token = next_token;
   }
 
-  const response = await axios.get(baseURL, {headers, params: query});
+  const response = await axios.get(baseURL, { headers, params: query });
   counter += response.data.data.length;
   console.log(`Received ${counter} tweets`);
-  
-  // filter out retweets
 
+  // filter out retweets
   const originalTweets = response.data.data.filter(tweet => !tweet.text.startsWith("RT @"));
   originalCounter += originalTweets.length;
   console.log(`Received ${originalCounter} original tweets`);
@@ -39,8 +34,35 @@ const getResults = async (next_token) => {
   originalTweets.forEach(tweet => console.log(tweet.text));
 
   if (response.data.meta.next_token) {
-    getResults(response.data.meta.next_token);
+    getJavaScriptTweets(response.data.meta.next_token);
   }
-};
+}
 
-getResults();
+const getReactJSTweets = async (next_token) => {
+  const query = {
+    "query": "react js OR react native OR react programming OR react library OR react javascript OR learn react lang:en",
+    "max_results": "100",
+    "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
+  };
+
+  if (next_token) {
+    query.next_token = next_token;
+  }
+
+  const response = await axios.get(baseURL, { headers, params: query });
+  counter += response.data.data.length;
+  console.log(`Received ${counter} tweets`);
+
+  // filter out retweets
+  const originalTweets = response.data.data.filter(tweet => !tweet.text.startsWith("RT @"));
+  originalCounter += originalTweets.length;
+  console.log(`Received ${originalCounter} original tweets`);
+
+  originalTweets.forEach(tweet => console.log(tweet.text));
+
+  if (response.data.meta.next_token) {
+    getReactJSTweets(response.data.meta.next_token);
+  }
+}
+
+getReactJSTweets();
