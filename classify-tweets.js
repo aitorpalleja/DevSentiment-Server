@@ -18,7 +18,7 @@ let originalCounter = 0;
 const getJavaScriptTweets = async (next_token) => {
   const query = {
     "query": "javascript lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
-    "max_results": "100",
+    "max_results": "10",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };
 
@@ -28,7 +28,7 @@ const getJavaScriptTweets = async (next_token) => {
 
   const response = await axios.get(baseURL, { headers, params: query });
   counter += response.data.data.length;
-  console.log(`Received ${counter} tweets`);
+  //console.log(`Received ${counter} tweets`);
 
   // filter out retweets
   const originalTweets = response.data.data.filter(tweet => !tweet.text.startsWith("RT @"));
@@ -47,9 +47,15 @@ const getJavaScriptTweets = async (next_token) => {
     //console.log(`The confidence levels of the labels are ${JSON.stringify(classificationResponse.body.classifications)}`);
     
     const classifications = classificationResponse.body.classifications;
-    const highestConfidenceLabel = classifications.reduce((prev, current) => (prev.confidence > current.confidence) ? prev : current);
-  
-    console.log(`The highest confidence label is: ${highestConfidenceLabel.prediction}`);
+
+    if (classifications) {
+      const highestConfidenceLabel = classifications.reduce((prev, current) => (prev.confidence > current.confidence) ? prev : current);
+      console.log(`The highest confidence label for tweet "${tweet.text}" is: ${highestConfidenceLabel.prediction}`);
+
+
+    } else {
+      console.error(`No classifications received for "${tweet.text}"`);
+    }
 
   });
 
@@ -61,3 +67,6 @@ const getJavaScriptTweets = async (next_token) => {
 }
 
 getJavaScriptTweets();
+
+
+
