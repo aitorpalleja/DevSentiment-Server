@@ -1,21 +1,25 @@
-const cohere = require('cohere-ai');
-const Bottleneck = require("bottleneck");
+import axios from 'axios';
+import Bottleneck from "bottleneck";
+import cohere from 'cohere-ai';
+import examples from '../examples.js';
+import dotenv from 'dotenv';
 
-cohere.init('74vRrIR19sYnuDw3XnJY1LcFAarw6LCaO3PscInD');
+dotenv.config();
+
+const apiKey = process.env.COHERE_API_KEY;
+const bearerToken = process.env.TWITTER_API_BEARER_TOKEN;
+
+cohere.init(apiKey);
 
 const limiter = new Bottleneck({
   maxConcurrent: 1,
   minTime: 600
 });
 
-require('dotenv').config();
-const axios = require('axios');
-const examples = require('./examples');
-
 const baseURL = 'https://api.twitter.com/2/tweets/search/recent';
 
 const headers = {
-  'Authorization': `Bearer ${process.env.BEARER_TOKEN}`,
+  'Authorization': `Bearer ${bearerToken}`,
   'Content-Type': 'application/json'
 };
 
@@ -23,7 +27,6 @@ let counter = 0;
 let originalCounter = 0;
 let analysisCounter = 0;
 const start = Date.now();
-
 
 const getJavaScriptTweets = async (next_token) => {
   const query = {
@@ -38,14 +41,10 @@ const getJavaScriptTweets = async (next_token) => {
 
   const response = await axios.get(baseURL, { headers, params: query });
   counter += response.data.data.length;
-  //console.log(`Received ${counter} tweets`);
 
   // filter out retweets
   const originalTweets = response.data.data.filter(tweet => !tweet.text.startsWith("RT @"));
   originalCounter += originalTweets.length;
-  //console.log(`Received ${originalCounter} original tweets`);
-
-  //originalTweets.forEach(tweet => console.log(tweet.text));
 
   originalTweets.forEach(async tweet => {
     await limiter.schedule(async () => {
@@ -54,8 +53,6 @@ const getJavaScriptTweets = async (next_token) => {
         inputs: [tweet.text],
         examples: examples
       })
-
-      //console.log(`The confidence levels of the labels are ${JSON.stringify(classificationResponse.body.classifications)}`);
 
       const classifications = classificationResponse.body.classifications;
 
