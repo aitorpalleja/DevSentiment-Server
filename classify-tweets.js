@@ -1,6 +1,12 @@
 const cohere = require('cohere-ai');
+const Bottleneck = require("bottleneck");
 
 cohere.init('74vRrIR19sYnuDw3XnJY1LcFAarw6LCaO3PscInD');
+
+const limiter = new Bottleneck({
+  maxConcurrent: 1,
+  minTime: 600
+});
 
 require('dotenv').config();
 const axios = require('axios');
@@ -19,7 +25,7 @@ let originalCounter = 0;
 const getJavaScriptTweets = async (next_token) => {
   const query = {
     "query": "javascript lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
-    "max_results": "10",
+    "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };
 
@@ -34,33 +40,32 @@ const getJavaScriptTweets = async (next_token) => {
   // filter out retweets
   const originalTweets = response.data.data.filter(tweet => !tweet.text.startsWith("RT @"));
   originalCounter += originalTweets.length;
-  console.log(`Received ${originalCounter} original tweets`);
+  //console.log(`Received ${originalCounter} original tweets`);
 
   //originalTweets.forEach(tweet => console.log(tweet.text));
 
   originalTweets.forEach(async tweet => {
-    const classificationResponse = await cohere.classify({
-      model: 'large',
-      inputs: [tweet.text],
-      examples: examples
-    })
+    await limiter.schedule(async () => {
+      const classificationResponse = await cohere.classify({
+        model: 'large',
+        inputs: [tweet.text],
+        examples: examples
+      })
 
-    //console.log(`The confidence levels of the labels are ${JSON.stringify(classificationResponse.body.classifications)}`);
-    
-    const classifications = classificationResponse.body.classifications;
+      //console.log(`The confidence levels of the labels are ${JSON.stringify(classificationResponse.body.classifications)}`);
 
-    if (classifications) {
-      const highestConfidenceLabel = classifications.reduce((prev, current) => (prev.confidence > current.confidence) ? prev : current);
-      console.log(`The highest confidence label for tweet "${tweet.text}" is: ${highestConfidenceLabel.prediction}`);
+      const classifications = classificationResponse.body.classifications;
 
+      if (classifications) {
+        const highestConfidenceLabel = classifications.reduce((prev, current) => (prev.confidence > current.confidence) ? prev : current);
+        console.log(`The highest confidence label for tweet "${tweet.text}" is: ${highestConfidenceLabel.prediction}`);
 
-    } else {
-      //console.error(`No classifications received for "${tweet.text}"`);
-    }
+      } else {
+        console.error(`No classifications received for "${tweet.text}"`);
+      }
+    });
 
   });
-
-
 
   if (response.data.meta.next_token) {
     getJavaScriptTweets(response.data.meta.next_token);
@@ -68,6 +73,3 @@ const getJavaScriptTweets = async (next_token) => {
 }
 
 getJavaScriptTweets();
-
-
-
