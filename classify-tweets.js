@@ -21,10 +21,13 @@ const headers = {
 
 let counter = 0;
 let originalCounter = 0;
+let analysisCounter = 0;
+const start = Date.now();
+
 
 const getJavaScriptTweets = async (next_token) => {
   const query = {
-    "query": "javascript lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
+    "query": "angular js OR angular programming OR angular library OR angular javascript OR learn angular lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
     "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };
@@ -59,6 +62,10 @@ const getJavaScriptTweets = async (next_token) => {
       if (classifications) {
         const highestConfidenceLabel = classifications.reduce((prev, current) => (prev.confidence > current.confidence) ? prev : current);
         console.log(`The highest confidence label for tweet "${tweet.text}" is: ${highestConfidenceLabel.prediction}`);
+        analysisCounter++;
+        
+        const elapsed = (Date.now() - start) / 1000;
+        console.log(`Processed tweet ${analysisCounter}. Elapsed time: ${elapsed} seconds.`);
 
       } else {
         console.error(`No classifications received for "${tweet.text}"`);
