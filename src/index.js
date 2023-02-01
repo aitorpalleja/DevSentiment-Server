@@ -1,11 +1,11 @@
 import Express from "express";
 import Mongoose from "mongoose";
-//import router from "./routes/routes.js";
+import router from "./routes/routes.js";
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-const mongodbRoute = process.env.MONGO_DB_URI
+const mongodbRoute = "mongodb+srv://aitor:mxW1aQLqJXOm5doC@tweets.bxz28ki.mongodb.net/?retryWrites=true&w=majority"
 
 const app = Express();
 const port = process.env.PORT || 3001;
@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//app.use(router);
+app.use(router);
 
 const options = {
     socketTimeoutMS: 0,
@@ -31,7 +31,7 @@ const options = {
 Mongoose.Promise = global.Promise;
 Mongoose.set('strictQuery', false);
 
-Mongoose.connect(mongodbRoute, options, (err) => {
+Mongoose.connect(mongodbRoute, { useNewUrlParser: true, serverSelectionTimeoutMS: 50000 }, (err) => {
     if (err) {
         return console.log(`Error connecting to the database: ${err}`)
     }
