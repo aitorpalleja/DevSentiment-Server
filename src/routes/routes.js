@@ -23,6 +23,6 @@ router.get('/getAndInsertAngularTweets', (req, res) => {
   getAndInsertAngularTweets()
 });
 
-getAndInsertAngularTweets
+
 
 export default router;
