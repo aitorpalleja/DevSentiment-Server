@@ -1,7 +1,7 @@
 import Express from "express";
 const router = Express.Router();
 
-import { getAndInsertJavascriptTweets } from "../controllers/classifiedTweetsController.js";
+import { getAndInsertJavascriptTweets } from "../controllers/javascriptController.js";
 
 router.get('/', (req, res) => {
     res.send('Hello World');
