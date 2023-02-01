@@ -1,41 +1,20 @@
-import mongoose from "mongoose";
+import Mongoose from "mongoose";
 
-const tweetSchema = new mongoose.Schema({
+const TweetSchema = new Mongoose.Schema({
   text: {
     type: String,
     required: true
   },
+  classification: {
+    type: String,
+    required: true
+  },
   topic: {
-    type: String,
-    required: true
-  },
-  sentiment: {
-    type: String,
-    required: true
-  },
-  tweetedAt: {
-    type: Date,
-    required: true,
-    default: Date.now
-  },
-  name: {
-    type: String,
-    required: false
-  },
-  rtQuantity: {
-    type: Number,
-    default: 0
-  },
-  likeQuantity: {
-    type: Number,
-    default: 0
-  },
-  tweetId: {
-    type: String,
-    required: false
+  type: String,
+  required: true
   }
 });
 
-const Tweet = mongoose.model("Tweet", tweetSchema);
+const Tweet = Mongoose.model("Tweet", TweetSchema);
 
 export default Tweet;

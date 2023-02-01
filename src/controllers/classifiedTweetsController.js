@@ -1,16 +1,4 @@
-import Mongoose from 'mongoose';
-
-Mongoose.set('strictQuery', false);
-Mongoose.connect("mongodb+srv://aitor:mxW1aQLqJXOm5doC@tweets.bxz28ki.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
-
-const db = Mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log("Connected to MongoDB");
-});
-
-
-
+import Tweet from '../models/tweetModel.js'
 
 import axios from 'axios';
 import Bottleneck from "bottleneck";
@@ -42,19 +30,6 @@ let counter = 0;
 let originalCounter = 0;
 let analysisCounter = 0;
 const start = Date.now();
-
-const TweetSchema = new Mongoose.Schema({
-    text: {
-      type: String,
-      required: true
-    },
-    highestConfidenceLabel: {
-      type: String,
-      required: true
-    }
-  });
-  
-  const Tweet = Mongoose.model('Tweet', TweetSchema);
 
 export const getJavaScriptTweets = async (next_token) => {
     const query = {
@@ -95,7 +70,8 @@ export const getJavaScriptTweets = async (next_token) => {
       
             const tweetData = new Tweet({
               text: tweet.text,
-              highestConfidenceLabel: highestConfidenceLabel.prediction
+              classification: highestConfidenceLabel.prediction,
+              topic: "Angular",
             });
       
             await tweetData.save();
@@ -112,4 +88,4 @@ export const getJavaScriptTweets = async (next_token) => {
     }
 }
 
-getJavaScriptTweets();
+getJavaScriptTweets()
