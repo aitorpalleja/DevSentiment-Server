@@ -3,9 +3,10 @@ import Mongoose from "mongoose";
 import router from "./routes/routes.js";
 import dotenv from 'dotenv'
 
+
 dotenv.config()
 
-const mongodbRoute = "mongodb+srv://aitor:mxW1aQLqJXOm5doC@tweets.bxz28ki.mongodb.net/?retryWrites=true&w=majority"
+const mongodbRoute = process.env.MONGO_DB_URI
 
 const app = Express();
 const port = process.env.PORT || 3001;
@@ -21,6 +22,12 @@ app.use(function (req, res, next) {
 });
 
 app.use(router);
+
+app.get('/get-javascript-tweets', (req, res) => {
+    getJavaScriptTweets()
+      .then(data => res.send(data))
+      .catch(error => res.status(500).send(error.message));
+  });
 
 const options = {
     socketTimeoutMS: 0,
