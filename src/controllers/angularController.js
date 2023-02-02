@@ -94,8 +94,8 @@ export const getAndInsertAngularTweets = async (next_token) => {
           } else if (highestConfidenceLabel.prediction === 'Negative') {
             topicInDb.negativeTweets++;
           }
-          topicInDb.positivePercent = (topicInDb.positiveTweets / topicInDb.totalTweets) * 100;
-          topicInDb.negativePercent = (topicInDb.negativeTweets / topicInDb.totalTweets) * 100;
+          topicInDb.positivePercent = ((topicInDb.positiveTweets / topicInDb.totalTweets) * 100).toFixed(1);
+          topicInDb.negativePercent = ((topicInDb.negativeTweets / topicInDb.totalTweets) * 100).toFixed(1);
 
           await topicInDb.save();
         } else {
