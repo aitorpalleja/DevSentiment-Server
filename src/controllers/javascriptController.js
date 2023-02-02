@@ -1,4 +1,5 @@
 import Tweet from '../models/tweetModel.js'
+import Topic from '../models/topicStatisticsModel.js'
 
 import axios from 'axios';
 import Bottleneck from "bottleneck";
@@ -74,28 +75,40 @@ export const getAndInsertJavascriptTweets = async (next_token) => {
           topic: "Javascript",
         });
 
-        await tweetData.save();
-        
-        const sameTopicTweet = await Tweet.findOne({ topic: "Javascript" });
-        if (sameTopicTweet) {
-          sameTopicTweet.totalCount += 1;
-          if (highestConfidenceLabel.prediction === "Positive") {
-            sameTopicTweet.positiveCount += 1;
-            sameTopicTweet.positivePercent = (sameTopicTweet.positiveCount / sameTopicTweet.totalCount) * 100;
-            sameTopicTweet.negativePercent = 100 - sameTopicTweet.positivePercent;
-          } else {
-            sameTopicTweet.negativeCount += 1;
-            sameTopicTweet.negativePercent = (sameTopicTweet.negativeCount / sameTopicTweet.totalCount) * 100;
-            sameTopicTweet.positivePercent = 100 - sameTopicTweet.negativePercent;
+        const topicData = new Topic({
+          topic: "Javascript",
+          positivetweets: 0,
+          negativetweets: 0,
+          totalTweets: 0,
+          positivePercent: 0,
+          negativePercent: 0
+        });
+
+
+        const topicInDb = await Topic.findOne({ topic: "Javascript" });
+        if (topicInDb) {
+          topicInDb.totalTweets++;
+          if (highestConfidenceLabel.prediction === 'Positive') {
+            topicInDb.positiveTweets++;
+
+          } else if (highestConfidenceLabel.prediction === 'Negative') {
+            topicInDb.negativeTweets++;
           }
-          await sameTopicTweet.save();
+          topicInDb.positivePercent = (topicInDb.positiveTweets / topicInDb.totalTweets) * 100;
+          topicInDb.negativePercent = (topicInDb.negativeTweets / topicInDb.totalTweets) * 100;
+
+          await topicInDb.save();
+        } else {
+          await topicData.save();
         }
+
+        await tweetData.save();
+
       } else {
         console.error(`No classifications received for "${tweet.text}"`);
       }
     });
   });
-
 
   if (response.data.meta.next_token) {
     getAndInsertJavascriptTweets(response.data.meta.next_token);

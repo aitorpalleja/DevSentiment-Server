@@ -1,4 +1,5 @@
 import Tweet from '../models/tweetModel.js'
+import Topic from '../models/topicStatisticsModel.js'
 
 import axios from 'axios';
 import Bottleneck from "bottleneck";
@@ -74,6 +75,33 @@ export const getAndInsertAngularTweets = async (next_token) => {
           topic: "Angular",
         });
 
+        const topicData = new Topic({
+          topic: "Angular",
+          positivetweets: 0,
+          negativetweets: 0,
+          totalTweets: 0,
+          positivePercent: 0,
+          negativePercent: 0
+        });
+
+
+        const topicInDb = await Topic.findOne({ topic: "Angular" });
+        if (topicInDb) {
+          topicInDb.totalTweets++;
+          if (highestConfidenceLabel.prediction === 'Positive') {
+            topicInDb.positiveTweets++;
+
+          } else if (highestConfidenceLabel.prediction === 'Negative') {
+            topicInDb.negativeTweets++;
+          }
+          topicInDb.positivePercent = (topicInDb.positiveTweets / topicInDb.totalTweets) * 100;
+          topicInDb.negativePercent = (topicInDb.negativeTweets / topicInDb.totalTweets) * 100;
+
+          await topicInDb.save();
+        } else {
+          await topicData.save();
+        }
+
         await tweetData.save();
 
       } else {
@@ -82,9 +110,7 @@ export const getAndInsertAngularTweets = async (next_token) => {
     });
   });
 
-
   if (response.data.meta.next_token) {
     getAndInsertAngularTweets(response.data.meta.next_token);
   }
 }
-
