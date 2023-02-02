@@ -75,7 +75,21 @@ export const getAndInsertJavascriptTweets = async (next_token) => {
         });
 
         await tweetData.save();
-
+        
+        const sameTopicTweet = await Tweet.findOne({ topic: "Javascript" });
+        if (sameTopicTweet) {
+          sameTopicTweet.totalCount += 1;
+          if (highestConfidenceLabel.prediction === "Positive") {
+            sameTopicTweet.positiveCount += 1;
+            sameTopicTweet.positivePercent = (sameTopicTweet.positiveCount / sameTopicTweet.totalCount) * 100;
+            sameTopicTweet.negativePercent = 100 - sameTopicTweet.positivePercent;
+          } else {
+            sameTopicTweet.negativeCount += 1;
+            sameTopicTweet.negativePercent = (sameTopicTweet.negativeCount / sameTopicTweet.totalCount) * 100;
+            sameTopicTweet.positivePercent = 100 - sameTopicTweet.negativePercent;
+          }
+          await sameTopicTweet.save();
+        }
       } else {
         console.error(`No classifications received for "${tweet.text}"`);
       }
