@@ -12,26 +12,6 @@ const TweetSchema = new Mongoose.Schema({
   topic: {
   type: String,
   required: true
-  },
-  positiveCount: {
-    type: Number,
-    default: 0
-  },
-  negativeCount: {
-    type: Number,
-    default: 0
-  },
-  totalCount: {
-    type: Number,
-    default: 0
-  },
-  positivePercent: {
-    type: Number,
-    default: 0
-  },
-  negativePercent: {
-    type: Number,
-    default: 0
   }
 });
 
