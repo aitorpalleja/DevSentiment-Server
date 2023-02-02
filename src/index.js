@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const mongodbRoute = process.env.MONGO_DB_URI
+const mongodbRoute = "mongodb+srv://aitor:mxW1aQLqJXOm5doC@tweets.bxz28ki.mongodb.net/?retryWrites=true&w=majority"
 
 const app = Express();
 const port = process.env.PORT || 3001;

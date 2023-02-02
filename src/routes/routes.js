@@ -5,6 +5,8 @@ import { getAndInsertJavascriptTweets } from "../controllers/javascriptControlle
 import { getAndInsertReactjsTweets } from "../controllers/reactjsController.js";
 import { getAndInsertAngularTweets } from "../controllers/angularController.js";
 
+import { getAllTweets } from "../controllers/getAllTweets.js";
+
 
 
 router.get('/', (req, res) => {
@@ -21,6 +23,10 @@ router.get('/getAndInsertReactjsTweets', (req, res) => {
 
 router.get('/getAndInsertAngularTweets', (req, res) => {
   getAndInsertAngularTweets()
+});
+
+router.get('/getAllTweets', (req, res) => {
+  getAllTweets(req,res)
 });
 
 
