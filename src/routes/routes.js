@@ -17,6 +17,7 @@ import { getAndInsertPerlTweets } from "../controllers/perlController.js";
 
 
 import { getStats } from "../controllers/getStats.js";
+import { getSpamCount } from "../controllers/getSpamCount.js";
 
 
 
@@ -79,6 +80,10 @@ router.get('/getAndInsertPerlTweets', (req, res) => {
 
 router.get('/getStats', (req, res) => {
   getStats(req,res)
+});
+
+router.get('/getSpamCount', (req, res) => {
+  getSpamCount(req,res)
 });
 
 
