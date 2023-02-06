@@ -18,6 +18,7 @@ import { getAndInsertPerlTweets } from "../controllers/perlController.js";
 
 import { getStats } from "../controllers/getStats.js";
 import { getSpamCount } from "../controllers/getSpamCount.js";
+import { getJobOfferCount } from "../controllers/getJobOfferCount.js";
 
 
 
@@ -86,6 +87,9 @@ router.get('/getSpamCount', (req, res) => {
   getSpamCount(req,res)
 });
 
+router.get('/getJobOfferCount', (req, res) => {
+  getJobOfferCount(req,res)
+});
 
 
 export default router;
