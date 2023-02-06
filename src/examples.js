@@ -22,8 +22,7 @@ const examples = [
     { "text": "@inerati Ideally, you would want to use both. Python had libraries that can connect to SQL databases for ML.", "label": "Positive" },
     { "text": "#Day24 and #Day25 Solved 2 questions on leetcode Completed python course video And completed SQL course of webdevsimplified #100DaysOfCode #100daysofcodechallenge #programming", "label": "Positive" },
     { "text": "Oracle Database functions to organize and structure datasets to store them electronically in the computerized system. https://t.co/y5wuIxHgpp . #oracle #DataScience #Python #technology #Software #coding #learning #programming #education #business #100DaysOfCode #database", "label": "Positive" },
-    { "text": "", "label": "Positive" },
-    { "text": "", "label": "Positive" },
+
 
 
 
@@ -68,9 +67,7 @@ const examples = [
     { "text": "Go Full Stack Developer at GoWeb. Go Full Stack Developer with experience in React and MongoDB needed for fast-growing web development company. On-site role. Salary: $80,000-$100,000. #go #fullstack", "label": "Job Offers" },
     { "text": "Rust Software Engineer at Rustic Systems. Rust Software Engineer with expertise in network programming and concurrent programming needed for innovative software company. Remote role. Pay: $120,000-$150,000. #rust #concurrentprogramming", "label": "Job Offers" },
     { "text": "Direct Contract - IT Strategy and Support - Python Developer at Quanteam, London, £Contract Rate https://t.co/Cng1DxZ3ab Join @contractspy #IT #contracts", "label": "Job Offers" },
-    { "text": "", "label": "Job Offers" },
-    { "text": "", "label": "Job Offers" },
-    { "text": "", "label": "Job Offers" },
+
 
 
     //Spam

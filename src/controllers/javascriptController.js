@@ -79,7 +79,7 @@ export const getAndInsertJavascriptTweets = async (next_token) => {
           topic: "Javascript",
           positivetweets: 0,
           negativetweets: 0,
-          totalTweets: 0,
+          totalTweets: 1,
           positivePercent: 0,
           negativePercent: 0,
           jobOffers: 0,
