@@ -10,8 +10,8 @@ const TweetSchema = new Mongoose.Schema({
     required: true
   },
   topic: {
-  type: String,
-  required: true
+    type: String,
+    required: true
   }
 });
 
