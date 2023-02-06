@@ -24,6 +24,14 @@ const topicDataSchema = new Mongoose.Schema({
     negativePercent: {
       type: Number,
       default: 0
+    },
+    jobOffers: {
+      type: Number,
+      default: 0
+    },
+    spamTweets: {
+      type: Number,
+      default: 0
     }
   });
   
