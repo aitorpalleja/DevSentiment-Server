@@ -23,7 +23,7 @@ const limiter = new Bottleneck({
 const baseURL = 'https://api.twitter.com/2/tweets/search/recent';
 
 const headers = {
-  'Authorization': `Bearer AAAAAAAAAAAAAAAAAAAAADgWlgEAAAAAXQStWfGStFNCJBffQZEcxpHC4RI%3Dctm5MeYj3GPELTgUmVdvhA7RnmsnADjFtiKlpps3qnANjkMIYs`,
+  'Authorization': `Bearer AAAAAAAAAAAAAAAAAAAAAGiHlgEAAAAAADeHbwAltl%2F5jPMAks5qOlru%2B%2Fs%3DMXSZiZeCXiDFo86tRxDhu7LLDisv9xfEQV0zheaYR7fHVfdMT6`,
   'Content-Type': 'application/json'
 };
 
@@ -81,22 +81,30 @@ export const getAndInsertJavascriptTweets = async (next_token) => {
           negativetweets: 0,
           totalTweets: 0,
           positivePercent: 0,
-          negativePercent: 0
+          negativePercent: 0,
+          jobOffers: 0,
+          spamTweets: 0,
+
         });
 
 
         const topicInDb = await Topic.findOne({ topic: "Javascript" });
         if (topicInDb) {
-          topicInDb.totalTweets++;
+          if (highestConfidenceLabel.prediction !== 'Spam') {
+            topicInDb.totalTweets++;
+          }
           if (highestConfidenceLabel.prediction === 'Positive') {
             topicInDb.positiveTweets++;
-
           } else if (highestConfidenceLabel.prediction === 'Negative') {
             topicInDb.negativeTweets++;
+          } else if (highestConfidenceLabel.prediction === 'Job Offers') {
+            topicInDb.jobOffers++;
+            topicInDb.positiveTweets++;
+          } else if (highestConfidenceLabel.prediction === 'Spam') {
+            topicInDb.spamTweets++;
           }
           topicInDb.positivePercent = ((topicInDb.positiveTweets / topicInDb.totalTweets) * 100).toFixed(1);
           topicInDb.negativePercent = ((topicInDb.negativeTweets / topicInDb.totalTweets) * 100).toFixed(1);
-
 
           await topicInDb.save();
         } else {
