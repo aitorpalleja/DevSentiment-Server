@@ -34,7 +34,7 @@ const start = Date.now();
 
 export const getAndInsertRubyTweets = async (next_token) => {
   const query = {
-    "query": "ruby programmer OR ruby programming OR ruby library OR ruby dev OR ruby developer lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
+    "query": "ruby programmer OR ruby programming OR ruby library OR ruby dev OR ruby developer OR ruby on rails OR rail developer OR rubyonrails lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
     "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };

@@ -34,7 +34,7 @@ const start = Date.now();
 
 export const getAndInsertPerlTweets = async (next_token) => {
   const query = {
-    "query": "perl programmer OR perl programming OR perl library OR perl dev OR perl developer lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
+    "query": "perl programmer OR perl programming OR perl library OR perl dev OR perl developer OR perl coding lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
     "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };

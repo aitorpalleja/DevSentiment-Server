@@ -34,7 +34,7 @@ const start = Date.now();
 
 export const getAndInsertGoTweets = async (next_token) => {
   const query = {
-    "query": "go programmer OR go programming OR go library OR go dev OR go developer lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
+    "query": "Golang lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
     "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };
@@ -72,11 +72,11 @@ export const getAndInsertGoTweets = async (next_token) => {
         const tweetData = new Tweet({
           text: tweet.text,
           classification: highestConfidenceLabel.prediction,
-          topic: "Go",
+          topic: "Golang",
         });
 
         const topicData = new Topic({
-          topic: "Go",
+          topic: "Golang",
           positivetweets: 0,
           negativetweets: 0,
           totalTweets: 1,
@@ -88,7 +88,7 @@ export const getAndInsertGoTweets = async (next_token) => {
         });
 
 
-        const topicInDb = await Topic.findOne({ topic: "Go" });
+        const topicInDb = await Topic.findOne({ topic: "Golang" });
         if (topicInDb) {
           if (highestConfidenceLabel.prediction != 'Spam') {
             topicInDb.totalTweets++;

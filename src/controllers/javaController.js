@@ -34,7 +34,7 @@ const start = Date.now();
 
 export const getAndInsertJavaTweets = async (next_token) => {
   const query = {
-    "query": "java lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
+    "query": "java programmer OR java programming OR java library OR java dev OR java developer lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
     "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };

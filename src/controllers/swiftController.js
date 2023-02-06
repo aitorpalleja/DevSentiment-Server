@@ -34,7 +34,7 @@ const start = Date.now();
 
 export const getAndInsertSwiftTweets = async (next_token) => {
   const query = {
-    "query": "swift programmer OR swift programming OR swift library OR swift dev OR swift developer lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
+    "query": "swift programmer OR swift programming OR swift library OR swift dev OR swift developer OR swift project OR swift coding OR swift ios lang:en -\"Taylor Swift\" -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
     "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };

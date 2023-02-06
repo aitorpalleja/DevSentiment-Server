@@ -14,6 +14,7 @@ import { getAndInsertRustTweets } from "../controllers/rustController.js";
 import { getAndInsertSolidityTweets } from "../controllers/solidityController.js";
 import { getAndInsertDartTweets } from "../controllers/dartController.js";
 import { getAndInsertPerlTweets } from "../controllers/perlController.js";
+import { getAndInsertCSharpTweets } from "../controllers/cSharpController.js";
 
 
 import { getStats } from "../controllers/getStats.js";
@@ -78,6 +79,12 @@ router.get('/getAndInsertDartTweets', (req, res) => {
 router.get('/getAndInsertPerlTweets', (req, res) => {
   getAndInsertPerlTweets()
 });
+
+router.get('/getAndInsertCSharpTweets', (req, res) => {
+  getAndInsertCSharpTweets()
+});
+
+
 
 router.get('/getStats', (req, res) => {
   getStats(req,res)
