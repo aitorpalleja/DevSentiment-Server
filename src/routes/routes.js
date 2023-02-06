@@ -2,6 +2,12 @@ import Express from "express";
 const router = Express.Router();
 
 import { getAndInsertJavascriptTweets } from "../controllers/javascriptController.js";
+import { getAndInsertPythonTweets } from "../controllers/pythonController.js";
+
+
+
+
+
 import { getAndInsertReactjsTweets } from "../controllers/reactjsController.js";
 import { getAndInsertAngularTweets } from "../controllers/angularController.js";
 
@@ -15,6 +21,10 @@ router.get('/', (req, res) => {
 
 router.get('/getAndInsertJavascriptTweets', (req, res) => {
   getAndInsertJavascriptTweets()
+});
+
+router.get('/getAndInsertPythonTweets', (req, res) => {
+  getAndInsertPythonTweets()
 });
 
 router.get('/getAndInsertReactjsTweets', (req, res) => {

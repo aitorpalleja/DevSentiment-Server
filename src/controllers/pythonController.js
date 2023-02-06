@@ -32,9 +32,9 @@ let originalCounter = 0;
 let analysisCounter = 0;
 const start = Date.now();
 
-export const getAndInsertJavascriptTweets = async (next_token) => {
+export const getAndInsertPythonTweets = async (next_token) => {
   const query = {
-    "query": "javascript lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
+    "query": "python lang:en -\"Essaydue\" -\"paywrite\" -\"essaypay\" -\"homeworkdue\" -\"assignmentdue\" -\"assignment due\" -\"essay pay\" -\"Essay due\" -\"pay write\" -\"Essays\"",
     "max_results": "100",
     "start_time": (new Date(Date.now() - 24 * 60 * 60 * 1000)).toISOString()
   };
@@ -72,11 +72,11 @@ export const getAndInsertJavascriptTweets = async (next_token) => {
         const tweetData = new Tweet({
           text: tweet.text,
           classification: highestConfidenceLabel.prediction,
-          topic: "Javascript",
+          topic: "Python",
         });
 
         const topicData = new Topic({
-          topic: "Javascript",
+          topic: "Python",
           positivetweets: 0,
           negativetweets: 0,
           totalTweets: 0,
@@ -88,7 +88,7 @@ export const getAndInsertJavascriptTweets = async (next_token) => {
         });
 
 
-        const topicInDb = await Topic.findOne({ topic: "Javascript" });
+        const topicInDb = await Topic.findOne({ topic: "Python" });
         if (topicInDb) {
           if (highestConfidenceLabel.prediction != 'Spam') {
             topicInDb.totalTweets++;
@@ -120,7 +120,7 @@ export const getAndInsertJavascriptTweets = async (next_token) => {
   });
 
   if (response.data.meta.next_token) {
-    getAndInsertJavascriptTweets(response.data.meta.next_token);
+    getAndInsertPythonTweets(response.data.meta.next_token);
   }
 }
 

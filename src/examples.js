@@ -18,7 +18,14 @@ const examples = [
     { "text": "JavaScript has a vast library of tools and frameworks available.", "label": "Positive" },
     { "text": "I enjoy using JavaScript to create dynamic and interactive websites.", "label": "Positive" },
     { "text": "JavaScript has a strong and growing job market.", "label": "Positive" },
-    { "text": "JavaScript is constantly evolving and improving.", "label": "Positive" },
+    { "text": "Python is constantly evolving and improving.", "label": "Positive" },
+    { "text": "@inerati Ideally, you would want to use both. Python had libraries that can connect to SQL databases for ML.", "label": "Positive" },
+    { "text": "#Day24 and #Day25 Solved 2 questions on leetcode Completed python course video And completed SQL course of webdevsimplified #100DaysOfCode #100daysofcodechallenge #programming", "label": "Positive" },
+    { "text": "Oracle Database functions to organize and structure datasets to store them electronically in the computerized system. https://t.co/y5wuIxHgpp . #oracle #DataScience #Python #technology #Software #coding #learning #programming #education #business #100DaysOfCode #database", "label": "Positive" },
+    { "text": "", "label": "Positive" },
+    { "text": "", "label": "Positive" },
+
+
 
     //Negative
     { "text": "I hate javascript", "label": "Negative" },
@@ -55,11 +62,16 @@ const examples = [
     { "text": "PHP Full Stack Developer at DataDriven. Looking for a talented full stack developer with experience in PHP, React, and MySQL. Full-time remote role. Salary: $90,000-$120,000. #php #fullstack", "label": "Job Offers" },
     { "text": "PHP Software Engineer at NextGen. PHP Software Engineer with experience in CodeIgniter and AWS needed for innovative software company. Fully remote role. Pay: $140,000-$180,000. #php #aws", "label": "Job Offers" },
     { "text": "Solidity Developer at Blockchain Labs. Seeking a skilled Solidity developer to join our team. Must have experience with Ethereum and smart contract development. On-site or remote options available. Pay: $85,000-$110,000. #solidity #blockchain", "label": "Job Offers" },
-{ "text": "Go Engineer at FastTrack Solutions. Go Engineer with expertise in cloud computing and microservices needed for fast-growing tech company. Remote work options available. Salary range: $120,000-$150,000. #go #cloudcomputing", "label": "Job Offers" },
-{ "text": "Rust Full Stack Developer at IronCode. Looking for a talented full stack developer with experience in Rust, React, and AWS. Full-time remote role. Salary: $90,000-$120,000. #rust #fullstack", "label": "Job Offers" },
-{ "text": "Senior Solidity Engineer at SmartChain. Senior Solidity Engineer with experience in Truffle and smart contract security needed for innovative blockchain company. Fully remote role. Pay: $140,000-$180,000. #solidity #truffle", "label": "Job Offers" },
-{ "text": "Go Full Stack Developer at GoWeb. Go Full Stack Developer with experience in React and MongoDB needed for fast-growing web development company. On-site role. Salary: $80,000-$100,000. #go #fullstack", "label": "Job Offers" },
-{ "text": "Rust Software Engineer at Rustic Systems. Rust Software Engineer with expertise in network programming and concurrent programming needed for innovative software company. Remote role. Pay: $120,000-$150,000. #rust #concurrentprogramming", "label": "Job Offers" },
+    { "text": "Go Engineer at FastTrack Solutions. Go Engineer with expertise in cloud computing and microservices needed for fast-growing tech company. Remote work options available. Salary range: $120,000-$150,000. #go #cloudcomputing", "label": "Job Offers" },
+    { "text": "Rust Full Stack Developer at IronCode. Looking for a talented full stack developer with experience in Rust, React, and AWS. Full-time remote role. Salary: $90,000-$120,000. #rust #fullstack", "label": "Job Offers" },
+    { "text": "Senior Solidity Engineer at SmartChain. Senior Solidity Engineer with experience in Truffle and smart contract security needed for innovative blockchain company. Fully remote role. Pay: $140,000-$180,000. #solidity #truffle", "label": "Job Offers" },
+    { "text": "Go Full Stack Developer at GoWeb. Go Full Stack Developer with experience in React and MongoDB needed for fast-growing web development company. On-site role. Salary: $80,000-$100,000. #go #fullstack", "label": "Job Offers" },
+    { "text": "Rust Software Engineer at Rustic Systems. Rust Software Engineer with expertise in network programming and concurrent programming needed for innovative software company. Remote role. Pay: $120,000-$150,000. #rust #concurrentprogramming", "label": "Job Offers" },
+    { "text": "Direct Contract - IT Strategy and Support - Python Developer at Quanteam, London, £Contract Rate https://t.co/Cng1DxZ3ab Join @contractspy #IT #contracts", "label": "Job Offers" },
+    { "text": "", "label": "Job Offers" },
+    { "text": "", "label": "Job Offers" },
+    { "text": "", "label": "Job Offers" },
+
 
     //Spam
     { "text": "🎉Chris is a tech consultant at Booze Allen thanks to Sabio!!🎉 Learn how you can break into tech, too! ⬇️https://t.co/wvCoQSNxZk #Code #Javascript #Job #Hiring #CodeNewbie #Coding #Technology #LearnToCode #Java #Tech #Programming #100DaysofCode #WebDesign #Coding101 https://t.co/tCkEb3SkhK", "label": "Spam" },
