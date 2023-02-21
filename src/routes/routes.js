@@ -67,7 +67,7 @@ router.get('/getAndInsertRustTweets', (req, res) => {
   getAndInsertRustTweets()
 });
 
-router.get('/getAndInsertSolidityTweets', (req, res) => {
+router.get('/getAndInsertSolidityTweets', (req, res) => { 
   getAndInsertSolidityTweets()
 });
 
